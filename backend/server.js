@@ -1,9 +1,53 @@
 const http = require('http');
 const app = require('./app');
 
-//have to set "app" a port
-app.set('port', process.env.PORT || 3000);
+const normalizePort = val => {
+  const port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    return val;
+  }
+  if (port >= 0) {
+    return port;
+  }
+  return false;
+};
+
+// return an empty port whether it's a number or string
+const port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
+
+// Look for differents erros and manage them.
+const errorHandler = error => {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  // Register in the server
+  const address = server.address();
+  const bind = typeof address === 'string' ? 'pipe ' + address : 'port: ' + port;
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges.');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use.');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+};
+
 const server = http.createServer(app);
 
-// if environnenment 3000 by default is not available
-server.listen(process.env.PORT || 3000);
+// Event Listner is registered
+server.on('error', errorHandler);
+server.on('listening', () => {
+  const address = server.address();
+  const bind = typeof address === 'string' ? 'pipe ' + address : 'port ' + port;
+  console.log('Listening on ' + bind);
+});
+
+server.listen(port);
