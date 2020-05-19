@@ -1,7 +1,14 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 const app = express();
+
+mongoose.connect('mongodb+srv://johndoe:johndoe12345@cluster0-lcnd1.mongodb.net/test?retryWrites=true&w=majority',
+  { useNewUrlParser: true,
+    useUnifiedTopology: true })
+  .then(() => console.log('Connexion à MongoDB réussie !'))
+  .catch(() => console.log('Connexion à MongoDB échouée !'));
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -44,3 +51,5 @@ app.use('/api/stuff', (req, res, next) => {
 });
 
 module.exports = app;
+
+// mongodb+srv://johndoe:<password>@cluster0-lcnd1.mongodb.net/test?retryWrites=true&w=majority
