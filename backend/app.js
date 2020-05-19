@@ -28,20 +28,23 @@ app.post('/api/stuff', (req, res, next) => {
   const thing = new Thing({
     ...req.body // copy fields in body request
   });
-
   //register object in DB and return a promise
   thing.save()
   .then(() => res.status(201).json({ message : 'Objet enregistré !' }))
   .catch(error => res.status(400).json({ error:error }));
 });
 
+app.get('/api/stuff/:id', (req, res, next) => {
+  Thing.findOne({ _id: req.params.id})
+  .then(thing => res.status(200).json(thing))
+  .catch(error => res.status(404).json({ error }));
+});
 
-app.use('/api/stuff', (req, res, next) => {
+
+app.get('/api/stuff', (req, res, next) => {
   Thing.find()
   .then( things => res.status(200).json(things))
   .catch(error => res.status(400).json({ error:error }));
 });
 
 module.exports = app;
-
-// mongodb+srv://johndoe:<password>@cluster0-lcnd1.mongodb.net/test?retryWrites=true&w=majority
