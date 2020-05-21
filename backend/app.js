@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 const stuffRoutes = require('./routes/stuff');
+const userRoutes = require('./routes/user');
 
 mongoose.connect(
   'mongodb+srv://johndoe:johndoe12345@cluster0-lcnd1.mongodb.net/test?retryWrites=true&w=majority',
@@ -23,6 +24,9 @@ app.use((req, res, next) => {
 
 // .use is for all the routes and json() is a method of body-parser object
 app.use(bodyParser.json());
+
+// register route waited by front-end
 app.use('/api/stuff', stuffRoutes);
+app.use('/api/auth', userRoutes);
 
 module.exports = app;
