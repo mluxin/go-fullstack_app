@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
 
 const stuffRoutes = require('./routes/stuff');
 
-mongoose.connect('mongodb+srv://johndoe:johndoe12345@cluster0-lcnd1.mongodb.net/test?retryWrites=true&w=majority',
+mongoose.connect(
+  'mongodb+srv://johndoe:johndoe12345@cluster0-lcnd1.mongodb.net/test?retryWrites=true&w=majority',
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
@@ -22,7 +23,6 @@ app.use((req, res, next) => {
 
 // .use is for all the routes and json() is a method of body-parser object
 app.use(bodyParser.json());
-
 app.use('/api/stuff', stuffRoutes);
 
 module.exports = app;

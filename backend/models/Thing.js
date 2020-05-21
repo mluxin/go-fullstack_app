@@ -1,6 +1,11 @@
+/*Import
+*/
 const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
-const thingSchema = mongoose.Schema({
+/* Schema
+*/
+const thingSchema = new Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
   imageUrl: { type: String, required: true },
@@ -8,4 +13,9 @@ const thingSchema = mongoose.Schema({
   price: { type: Number, required: true },
 });
 
-module.exports = mongoose.model('Thing', thingSchema);
+/*
+Export
+*/
+const MyModel = mongoose.model('Thing', thingSchema);
+module.exports = MyModel;
+//
