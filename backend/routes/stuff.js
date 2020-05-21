@@ -5,14 +5,17 @@ const express = require('express');
 const router = express.Router();
 const stuffController = require('../controllers/stuff');
 
+// add middleware on routes we want to protect
+const auth = require('../middleware/auth');
+
 /*
 Routes
 */
-router.post('/', stuffController.createThing);
-router.get('/:id', stuffController.getOneThing);
-router.put('/:id', stuffController.updateThing);
-router.delete('/:id', stuffController.deleteThing);
-router.get('/', stuffController.getAllThings);
+router.post('/', auth, stuffController.createThing);
+router.get('/:id', auth, stuffController.getOneThing);
+router.put('/:id', auth, stuffController.updateThing);
+router.delete('/:id', auth, stuffController.deleteThing);
+router.get('/', auth, stuffController.getAllThings);
 
 /*
 Exports

@@ -29,8 +29,8 @@ CRUD: Get all the things
   exports.getAllThings = (req, res, next) => {
 
     ThingModel.find()
-    .then( things => res.status(200).json(things))
-    .catch(error => res.status(400).json({ error:error }));
+    .then( (things) => {  res.status(200).json(things)} )
+    .catch( (error) => {res.status(400).json({ error:error })} );
   };
 //
 
@@ -75,3 +75,4 @@ CRUD: detelete a thing
     .catch(error => res.status(400).json({ error:error }));
   };
 //
+
