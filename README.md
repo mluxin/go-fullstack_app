@@ -2,4 +2,5 @@
 
 - CRUD on a thing through a mongoose model (mvc structure)
 - Connection with MongoDB through an Atlas Cluster
-- Authentification feature (hash password,)
+- Authentification features with bcrypt, mongoose unique validator and jsonwebtoken
+- Files management with multer
