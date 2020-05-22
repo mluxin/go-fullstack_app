@@ -7,14 +7,13 @@ const ThingModel = require('../models/thing');
 CRUD: Create a thing
 */
 exports.createThing = (req, res, next) => {
-  delete req.body._id;
+  const thingObject = JSON.parse(req.body.thing);
+
+  delete thingObject._id;
 
   const thing = new ThingModel({
-    title: req.body.title,
-    description: req.body.description,
-    imageUrl: req.body.imageUrl,
-    price: req.body.price,
-    userId: req.body.userId
+    ...thingObject,
+    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
   });
 
   thing.save()

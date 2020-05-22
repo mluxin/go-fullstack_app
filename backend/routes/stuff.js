@@ -8,10 +8,12 @@ const stuffController = require('../controllers/stuff');
 // add middleware on routes we want to protect
 const auth = require('../middleware/auth');
 
+const multer = require ('../middleware/multer-config');
+
 /*
 Routes
 */
-router.post('/', auth, stuffController.createThing);
+router.post('/', auth, multer, stuffController.createThing);
 router.get('/:id', auth, stuffController.getOneThing);
 router.put('/:id', auth, stuffController.updateThing);
 router.delete('/:id', auth, stuffController.deleteThing);
