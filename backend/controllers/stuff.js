@@ -49,16 +49,14 @@ CRUD: Update a thing
 */
   exports.updateThing = (req, res, next) => {
 
-    const thing = new ThingModel({
-      _id: req.params.id,
-      title: req.body.title,
-      description: req.body.description,
-      imageUrl: req.body.imageUrl,
-      price: req.body.price,
-      userId: req.body.userId
-    });
+    const thingObject = req.file
+    ? {
+      ...JSON.parse(req.body.thing),
+      imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+    }
+    : {...req.body};
 
-    ThingModel.updateOne({_id: req.params.id},thing)
+    ThingModel.updateOne({_id: req.params.id}, {...thingObject, _id: req.params.id})
     .then(() => res.status(201).json({ message : 'Objet modifié !' }))
     .catch(error => res.status(400).json({ error:error }));
   };

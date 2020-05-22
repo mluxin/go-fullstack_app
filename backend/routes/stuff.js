@@ -15,7 +15,7 @@ Routes
 */
 router.post('/', auth, multer, stuffController.createThing);
 router.get('/:id', auth, stuffController.getOneThing);
-router.put('/:id', auth, stuffController.updateThing);
+router.put('/:id', auth, multer, stuffController.updateThing);
 router.delete('/:id', auth, stuffController.deleteThing);
 router.get('/', auth, stuffController.getAllThings);
 
